@@ -1,0 +1,17 @@
+curl -i "http://localhost:5000/author/Chinua%20Achebe"
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: text/html; charset=utf-8
+Content-Length: 110
+ETag: W/"6e-5Z8IMgNEtDSTvUDRdiJGc9LId7M"
+Date: Mon, 19 Oct 2026 18:09:38 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+[
+    {
+        "author": "Chinua Achebe",
+        "title": "Things Fall Apart",
+        "reviews": {}
+    }
+]

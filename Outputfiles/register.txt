@@ -1,0 +1,13 @@
+ curl -i -X POST http://localhost:5000/register \
+-H "Content-Type: application/json" \
+-d '{"username":"test_id1","password":"test123"}'
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 61
+ETag: W/"3d-v6m6Uonx379AzEulAwPVnSwqyJQ"
+Date: Mon, 19 Oct 2026 18:11:10 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"message":"User successfully registered. Now you can login"}
