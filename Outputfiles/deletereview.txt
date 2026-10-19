@@ -1,0 +1,11 @@
+curl -i -b cookies.txt -X DELETE http://localhost:5000/customer/auth/review/1
+HTTP/1.1 200 OK
+X-Powered-By: Express
+Content-Type: application/json; charset=utf-8
+Content-Length: 54
+ETag: W/"36-CWIhLFnDDJJNghj92Dyv9oJktLA"
+Date: Mon, 19 Oct 2026 18:47:30 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+
+{"message":"Review deleted successfully","reviews":{}}
