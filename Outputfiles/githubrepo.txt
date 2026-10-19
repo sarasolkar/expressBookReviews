@@ -1,0 +1,6 @@
+curl -s https://api.github.com/repos/sarasolkar/expressBookReviews | jq '{full_name, message, parent: .parent.full_name}'
+{
+  "full_name": "sarasolkar/expressBookReviews",
+  "message": null,
+  "parent": "ibm-developer-skills-network/expressBookReviews"
+}
