@@ -23,51 +23,67 @@ public_users.post("/register", (req,res) => {
 });
 
 // Get the book list available in the shop
-public_users.get('/',function (req, res) {
+public_users.get('/', async function (req, res) {
   //Write your code here
-  return res.send(JSON.stringify(books, null, 4));
+  try {
+    const result = await Promise.resolve(books);
+    return res.send(JSON.stringify(result, null, 4));
+  } catch (error) {
+    return res.status(500).json({message: "Error retrieving books"});
+  }
 });
 
 // Get book details based on ISBN
-public_users.get('/isbn/:isbn',function (req, res) {
+public_users.get('/isbn/:isbn', function (req, res) {
   //Write your code here
   let isbn = req.params.isbn;
-  if (books[isbn]) {
-    return res.send(books[isbn]);
-  }
-  return res.status(404).json({message: "Book not found"});
+
+  Promise.resolve(books[isbn])
+    .then((result) => {
+      if (result) {
+        return res.send(result);
+      }
+      return res.status(404).json({message: "Book not found"});
+    })
+    .catch(() => {
+      return res.status(500).json({message: "Error retrieving book"});
+    });
  });
   
 // Get book details based on author
-public_users.get('/author/:author',function (req, res) {
+public_users.get('/author/:author', async function (req, res) {
   //Write your code here
   let author = req.params.author;
-  let bookKeys = Object.keys(books);
-  let result = [];
 
-  bookKeys.forEach((isbn) => {
-    if (books[isbn].author === author) {
-      result.push(books[isbn]);
-    }
-  });
+  try {
+    const result = await Promise.resolve(
+      Object.keys(books)
+        .filter((isbn) => books[isbn].author === author)
+        .map((isbn) => books[isbn])
+    );
 
-  return res.send(JSON.stringify(result, null, 4));
+    return res.send(JSON.stringify(result, null, 4));
+  } catch (error) {
+    return res.status(500).json({message: "Error retrieving books by author"});
+  }
 });
 
 // Get all books based on title
-public_users.get('/title/:title',function (req, res) {
+public_users.get('/title/:title', function (req, res) {
   //Write your code here
   let title = req.params.title;
-  let bookKeys = Object.keys(books);
-  let result = [];
 
-  bookKeys.forEach((isbn) => {
-    if (books[isbn].title === title) {
-      result.push(books[isbn]);
-    }
-  });
-
-  return res.send(JSON.stringify(result, null, 4));
+  Promise.resolve(
+    Object.keys(books)
+      .filter((isbn) => books[isbn].title === title)
+      .map((isbn) => books[isbn])
+  )
+    .then((result) => {
+      return res.send(JSON.stringify(result, null, 4));
+    })
+    .catch(() => {
+      return res.status(500).json({message: "Error retrieving books by title"});
+    });
 });
 
 //  Get book review
